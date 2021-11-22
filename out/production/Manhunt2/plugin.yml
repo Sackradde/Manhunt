@@ -1,0 +1,13 @@
+main: me.Sackradde.Manhunt2.Main
+name: Manhunt
+version: 1.0
+author: Sackradde
+description: Mincraft Manhunt
+api-version: 1.17
+commands:
+      manhuntstart:
+            description: Start a Manhunt Match.
+            usage: /manhuntstart
+      manhunthunted:
+            usage: /manhunthunted
+            description: Sets the Hunted.
