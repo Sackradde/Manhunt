@@ -1,5 +1,7 @@
 package me.Sackradde.Manhunt2;
 
+
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -8,15 +10,22 @@ import org.bukkit.entity.Player;
 
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.ScoreboardManager;
+import org.bukkit.scoreboard.Team;
 
 
 public class Main extends JavaPlugin {
 
     public Player hunted;
+    private Team team;
 
     @Override
     public void onEnable(){
         getServer().getPluginManager().registerEvents(new ClickListener(), this);
+        ScoreboardManager manager = Bukkit.getScoreboardManager();
+        Scoreboard scoreboard = manager.getMainScoreboard();
+        team = scoreboard.registerNewTeam("Hunted");
     }
 
     @Override
@@ -60,9 +69,11 @@ public class Main extends JavaPlugin {
             }else{
                 hunted.sendMessage(hunted.getName() + " you are no Longer the hunted!");
                 hunted.setPlayerListHeader("");
+                team.removeEntry(hunted.getName());
             }
             hunted = (Player) sender;
             hunted.setPlayerListHeader("Hunted");
+            team.addEntry(hunted.getName());
             sender.sendMessage( hunted.getName() + " you are the hunted!");
 
             return true;
